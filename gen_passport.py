@@ -189,7 +189,7 @@ printed_box(lx + 46 * S, M + 372 * S, lx + 262 * S, M + 462 * S, "PERMIT · LEUB
             col=(120, 40, 50))
 
 # stamps
-stamp_rect(lx + 150 * S, M + 120 * S, 150, 78, ["VELDARA", "RHUNE LOCK 19", dm(VEXIT), "EXIT · IZHOD"], RED, 3, 0)
+stamp_rect(lx + 140 * S, M + 178 * S, 140, 66, ["VELDARA", "RHUNE LOCK 19", dm(VEXIT), "EXIT · IZHOD"], RED, 3, 0)
 stamp_round(lx + 340 * S, M + 90 * S, "Harrowgate Br.", "KESTAVIA", "ENTRY", STAMPS[0][3], BLUE, -9)
 stamp_oval(lx + 395 * S, M + 235 * S, 150, 96, "Harrowgate Br.", "KESTAVIA", "EXIT", STAMPS[1][3], VIOL, 8)
 stamp_rect(lx + 150 * S, M + 255 * S, 150, 78, ["VELDARA", "RHUNE LOCK 19", dm(STAMPS[2][3]), "ENTRY · VHOD"], RED, -4, 0)
