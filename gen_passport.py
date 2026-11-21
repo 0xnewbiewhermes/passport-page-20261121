@@ -51,6 +51,8 @@ for s in STAMPS: assert ISSUE < s[3] < TODAY
 for a, b in [(0, 1), (3, 4)]:
     assert STAMPS[a][3] < STAMPS[b][3] and STAMPS[a][0] == STAMPS[b][0]
 assert STAMPS[1][3] <= STAMPS[2][3] < STAMPS[3][3] and STAMPS[4][3] <= STAMPS[5][3]
+VEXIT = D(2024, 6, 1)
+assert ISSUE < VEXIT < STAMPS[0][3] < TODAY
 VISA_DATE = D(2024, 5, 28)
 PERMIT_DATE = D(2024, 9, 9)
 assert ISSUE < VISA_DATE < STAMPS[0][3] and STAMPS[2][3] < PERMIT_DATE < STAMPS[3][3]
@@ -187,11 +189,12 @@ printed_box(lx + 46 * S, M + 372 * S, lx + 262 * S, M + 462 * S, "PERMIT · LEUB
             col=(120, 40, 50))
 
 # stamps
+stamp_rect(lx + 150 * S, M + 120 * S, 150, 78, ["VELDARA", "RHUNE LOCK 19", dm(VEXIT), "EXIT · IZHOD"], RED, 3, 0)
 stamp_round(lx + 340 * S, M + 90 * S, "Harrowgate Br.", "KESTAVIA", "ENTRY", STAMPS[0][3], BLUE, -9)
 stamp_oval(lx + 395 * S, M + 235 * S, 150, 96, "Harrowgate Br.", "KESTAVIA", "EXIT", STAMPS[1][3], VIOL, 8)
 stamp_rect(lx + 150 * S, M + 255 * S, 150, 78, ["VELDARA", "RHUNE LOCK 19", dm(STAMPS[2][3]), "ENTRY · VHOD"], RED, -4, 0)
 stamp_round(lx + 380 * S, M + 380 * S, "Skarn Quay", "DUNMOOR", "ENTRY", STAMPS[3][3], BLK, 6, r=58)
-stamp_rect(lx + 330 * S, M + 495 * S, 160, 82, ["DUNMOOR · SKARN QUAY", dm(STAMPS[4][3]), "DEPARTED · EXIT"], BLUE, -7, 0)
+stamp_rect(lx + 330 * S, M + 495 * S, 190, 82, ["DUNMOOR · SKARN QUAY", dm(STAMPS[4][3]), "DEPARTED · EXIT"], BLUE, -7, 0)
 stamp_round(lx + 140 * S, M + 565 * S, "Marenhal Port", "VELDARA", "ENTRY", STAMPS[5][3], RED, 11, r=62)
 
 # ---------- right page: data page ----------
@@ -250,17 +253,10 @@ img.paste(port, (px0, py0))
 d = ImageDraw.Draw(img)
 d.rectangle((px0, py0, px0 + pw, py0 + ph), outline=ink, width=2 * S)
 # ghost portrait
-gp = port.resize((52 * S, 66 * S)).convert("L")
-gl = Image.new("RGBA", gp.size, (110, 120, 110, 0))
-gl.putalpha(gp.point(lambda v: 90))
+gp = port.resize((52 * S, 66 * S))
 gx, gy = px0 + pw + 8 * S, py0 + ph - 66 * S
-img.paste(Image.new("RGB", gp.size, (170, 170, 150)), (gx, gy), gl.getchannel("A"))
+img.paste(gp, (gx, gy), Image.new("L", gp.size, 60))
 d = ImageDraw.Draw(img)
-# small photo-like detail: pointed micro-photo with tilt mark
-d.rectangle((gx, py0, gx + 52 * S, py0 + 40 * S), outline=lab, width=1)
-T(d, (gx + 26 * S, py0 + 20 * S), "VLD", font("georgiab.ttf", 14), (150, 150, 140), "mm")
-d.rectangle((gx, py0 + 46 * S, gx + 52 * S, py0 + 112 * S), outline=lab, width=1)
-T(d, (gx + 26 * S, py0 + 79 * S), "P", font("georgiab.ttf", 26), (170, 170, 160), "mm")
 
 # fields
 fx0 = gx + 52 * S + 14 * S
@@ -295,8 +291,12 @@ field2(0, 2, "KRAJ ROJSTVA / PLACE OF BIRTH", "MARENHAL")
 field2(1, 2, "IZDANO / DATE OF ISSUE", dm(ISSUE))
 field2(0, 3, "ORGAN / AUTHORITY", "MARENHAL PASSPORT OFFICE")
 field2(1, 3, "VELJA DO / DATE OF EXPIRY", dm(EXPIRY))
+field2(0, 4, "POKLIC / OCCUPATION", "BARGE CREW")
+field2(1, 4, "VISINA / HEIGHT", "174 CM")
+field2(0, 5, "PRIPOMBE / ENDORSEMENTS", "SEE P. 14 · VIDI STR. 14")
+field2(1, 5, "OCI / EYES", "BROWN")
 # signature
-sy = fy + 4 * 46 * S + 4 * S
+sy = fy + 6 * 46 * S - 4 * S
 d.line([(rx0, sy + 22 * S), (rx0 + 200 * S, sy + 22 * S)], fill=ink, width=1)
 T(d, (rx0, sy + 26 * S), "PODPIS / HOLDER'S SIGNATURE", fl, lab)
 sig = [(0, 14), (8, 2), (14, 18), (22, 4), (30, 16), (40, 8), (52, 14), (66, 3), (80, 12), (100, 8), (120, 14), (140, 6)]
