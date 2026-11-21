@@ -273,7 +273,7 @@ def field(col, row, label, value, span=1):
     T(d, (x, y + 11 * S), value, fv, ink)
 field(0, 0, "TIP / TYPE", "P")
 field(1, 0, "KOD / CODE", CODE)
-field(0, 1, "PASAPORTA No. / PASSPORT No.", PNO)
+field(0, 1, "PAS. No. / PASSPORT No.", PNO)
 field(1, 1, "DRZAVA / NATIONALITY", "VELDARAN")
 d.line([(fx0, py0 + 80 * S), (rx1, py0 + 80 * S)], fill=(190, 185, 170), width=1)
 # wide fields below the portrait
@@ -283,7 +283,7 @@ fx0 = rx0
 colw = (rx1 - rx0) // 2
 def field2(col, row, label, value):
     x = rx0 + col * colw
-    y = fy + row * 38 * S
+    y = fy + row * 46 * S
     T(d, (x, y), label, fl, lab)
     T(d, (x, y + 11 * S), value, fv, ink)
 # row set below
@@ -296,7 +296,7 @@ field2(1, 2, "IZDANO / DATE OF ISSUE", dm(ISSUE))
 field2(0, 3, "ORGAN / AUTHORITY", "MARENHAL PASSPORT OFFICE")
 field2(1, 3, "VELJA DO / DATE OF EXPIRY", dm(EXPIRY))
 # signature
-sy = fy + 4 * 38 * S + 6 * S
+sy = fy + 4 * 46 * S + 4 * S
 d.line([(rx0, sy + 22 * S), (rx0 + 200 * S, sy + 22 * S)], fill=ink, width=1)
 T(d, (rx0, sy + 26 * S), "PODPIS / HOLDER'S SIGNATURE", fl, lab)
 sig = [(0, 14), (8, 2), (14, 18), (22, 4), (30, 16), (40, 8), (52, 14), (66, 3), (80, 12), (100, 8), (120, 14), (140, 6)]
